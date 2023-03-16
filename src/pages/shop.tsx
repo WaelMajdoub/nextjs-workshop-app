@@ -27,8 +27,10 @@ export default function Shop() {
         <h1>Welcome to shop page</h1>
         <button onClick={fetchProducts}>Fetch Products</button>
 
-        {products.length > 0 && <h2 >List of products</h2> }
+        {/* {products.length > 0 && <h2 >List of products</h2> } */}
         
+        {products.length > 0 ? <h2 >List of products</h2> : <h3>No data yet</h3> }
+
       </main>
     </>
   )
