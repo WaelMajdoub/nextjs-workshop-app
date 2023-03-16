@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Login() {
-  //logique
 
   return (
     <>
@@ -15,7 +14,16 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Welcome to IMSET Nabeul</h1>
+        <h1>Welcome back, please login</h1>
+        <form>
+          <div>
+            <input name='email' placeholder='Email' type='email' />
+          </div>
+          <div>
+            <input name='password' placeholder='Password' type='password' />
+          </div>
+          <button>Connexion</button>
+        </form>
       </main>
     </>
   )
