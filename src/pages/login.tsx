@@ -6,6 +6,16 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Login() {
 
+  const [title, setTitle]  = useState('Welcome back, please login!')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  
+  const resetForm = (event: any) => {
+    event.preventDefault()
+    setEmail('')
+    setPassword('')
+  }
+
   return (
     <>
       <Head>
@@ -15,15 +25,18 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Welcome back, please login</h1>
+        <h1>{title}</h1>
+        <p>your email is: {email}</p>
+        <p>your password is: {password}</p>
         <form>
           <div>
-            <input name='email' placeholder='Email' type='email' />
+            <input name='email' placeholder='exemple@gmail.com' type='email' value={email} onChange={(event) => setEmail(event.target.value)} />
           </div>
           <div>
-            <input name='password' placeholder='Password' type='password' />
+            <input name='password' placeholder='Password' type='password' value={password} onChange={(event) => setPassword(event.target.value)} />
           </div>
-          <button>Connexion</button>
+          <button disabled={password.length < 8 || email.length < 2}>Connexion</button>
+          <button onClick={resetForm}>Reset</button>
         </form>
       </main>
     </>
