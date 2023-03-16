@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
@@ -5,11 +6,13 @@ const inter = Inter({ subsets: ['latin'] })
 import axios from 'axios'
 
 export default function Shop() {
+  const [products, setProducts] = useState([])
   // logique 
   const fetchProducts = async () => {
     console.log('send request to an API to fetch products')
     const response = await axios.get('https://fakestoreapi.com/products')
     console.log('response from the API : ', response.data)
+    setProducts(response.data)
   }
 
   return (
@@ -23,6 +26,9 @@ export default function Shop() {
       <main>
         <h1>Welcome to shop page</h1>
         <button onClick={fetchProducts}>Fetch Products</button>
+
+        {products.length > 0 && <h2 >List of products</h2> }
+        
       </main>
     </>
   )
