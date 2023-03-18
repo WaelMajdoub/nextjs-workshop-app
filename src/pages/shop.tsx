@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
@@ -7,6 +7,8 @@ import axios from 'axios'
 
 export default function Shop() {
   const [products, setProducts] = useState([])
+  const [count, setCount] = useState(0)
+
   // logique 
   const fetchProducts = async () => {
     console.log('send request to an API to fetch products')
@@ -14,6 +16,15 @@ export default function Shop() {
     console.log('response from the API : ', response.data)
     setProducts(response.data)
   }
+
+  useEffect(() => {
+    console.log('display all products ...')
+    fetchProducts()
+  },[]);
+
+  useEffect(() => {
+    console.log('filter products based on the selected filter...')
+  },[count]);
 
   return (
     <>
@@ -25,12 +36,14 @@ export default function Shop() {
       </Head>
       <main>
         <h1>Welcome to shop page</h1>
-        <button onClick={fetchProducts}>Fetch Products</button>
+        <h2>Count : {count}</h2>
+        <button onClick={() => setCount(count + 1) }>+</button>
+        <br />
+        <button onClick={() => setCount(count - 1) }>-</button>
 
-        {/* {products.length > 0 && <h2 >List of products</h2> } */}
         
+        {/* {products.length > 0 && <h2 >List of products</h2> } */}
         {products.length > 0 ? <h2 >List of products</h2> : <h3>No data yet</h3> }
-
       </main>
     </>
   )
