@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const router = useRouter()
@@ -25,6 +26,7 @@ export default function Login() {
     // TODO: save the token on the localstorage
     // TODO: display success flush message
     // TODO: redirect the user to the dashboard
+    toast("Welcome Back, Login successfully")
     router.push('/')
   }
 
