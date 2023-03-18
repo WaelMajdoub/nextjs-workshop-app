@@ -3,9 +3,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
+import { useRouter } from 'next/router'
 
 export default function Login() {
-
+  const router = useRouter()
   const [title, setTitle]  = useState('Welcome back, please login!')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -14,6 +15,17 @@ export default function Login() {
     event.preventDefault()
     setEmail('')
     setPassword('')
+  }
+
+  const handleLogin = (event: any) => {
+    event.preventDefault()
+    console.log('login the user')
+    // TODO data validation (email, password)
+    // TODO: sends a post request to the API
+    // TODO: save the token on the localstorage
+    // TODO: display success flush message
+    // TODO: redirect the user to the dashboard
+    router.push('/')
   }
 
   return (
@@ -35,7 +47,7 @@ export default function Login() {
           <div>
             <input name='password' placeholder='Password' type='password' value={password} onChange={(event) => setPassword(event.target.value)} />
           </div>
-          <button disabled={password.length < 8 || email.length < 2}>Connexion</button>
+          <button disabled={password.length < 8 || email.length < 2} onClick={handleLogin}>Connexion</button>
           <button onClick={resetForm}>Reset</button>
         </form>
       </main>

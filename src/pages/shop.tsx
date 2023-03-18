@@ -4,8 +4,10 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Shop() {
+  const router = useRouter()
   const [products, setProducts] = useState([])
   const [count, setCount] = useState(0)
 
@@ -26,6 +28,10 @@ export default function Shop() {
     console.log('filter products based on the selected filter...')
   },[count]);
 
+  const gotoHomePage = () => {
+    router.push('/')
+  }
+
   return (
     <>
       <Head>
@@ -40,8 +46,11 @@ export default function Shop() {
         <button onClick={() => setCount(count + 1) }>+</button>
         <br />
         <button onClick={() => setCount(count - 1) }>-</button>
+        <br />
+        <button onClick={gotoHomePage}>Go to Homepage</button>
+        <button onClick={() => router.push('/login')}>Go to Login</button>
 
-        
+
         {/* {products.length > 0 && <h2 >List of products</h2> } */}
         {products.length > 0 ? <h2 >List of products</h2> : <h3>No data yet</h3> }
       </main>
