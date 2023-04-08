@@ -15,7 +15,11 @@ export default function CreateClient() {
   const handleSaveClient = (event: any) => {
     event.preventDefault()
     const payload = {
-      email: email
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone: phone,
+      address: address,
     }
     console.log('display the client informations', payload)
   }
