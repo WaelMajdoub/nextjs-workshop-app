@@ -5,8 +5,10 @@ import TextField from '@mui/material/TextField';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/material/Button';
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export default function CreateClient() {
+  const router = useRouter()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -24,6 +26,15 @@ export default function CreateClient() {
       address: address,
     }
     console.log('display the client informations', payload)
+    try {
+      await axios.post('https://dental.aftercode.tn/api/v1/patients/', payload)
+      //local API
+      // await axios.post('http://localhost:3000/api/clients/', payload)
+      toast("Client created successfully")
+      router.push('/clients/')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
