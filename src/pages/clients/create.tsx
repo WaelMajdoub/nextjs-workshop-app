@@ -40,11 +40,26 @@ export default function CreateClient() {
           onChange={(event) => setLastName(event.target.value)}
           />
          <br />
-         <TextField label="Email" variant="outlined" value={email} onChange={(event) => setEmail(event.target.value)} />
+         <TextField
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          />
          <br />
-         <TextField label="Phone" variant="outlined" value={phone} onChange={(event) => setPhone(event.target.value)} />
+         <TextField
+          label="Phone"
+          variant="outlined" 
+          value={phone} 
+          onChange={(event) => setPhone(event.target.value)} 
+          />
          <br />
-         <TextField label="Address" variant="outlined" value={address} onChange={(event) => setAddress(event.target.value)} />
+         <TextField 
+          label="Address" 
+          variant="outlined" 
+          value={address} 
+          onChange={(event) => setAddress(event.target.value)} 
+          />
          <br />
          <Button 
           variant="outlined"
