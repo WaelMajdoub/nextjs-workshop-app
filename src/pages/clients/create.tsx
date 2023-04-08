@@ -13,7 +13,7 @@ export default function CreateClient() {
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
 
-  const handleSaveClient = (event: any) => {
+  const handleSaveClient = async (event: any) => {
     event.preventDefault()
     const payload = {
       first_name: firstName,
