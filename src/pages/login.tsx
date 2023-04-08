@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify';
+import Button from '@mui/material/Button';
 
 export default function Login() {
   const router = useRouter()
@@ -49,7 +50,7 @@ export default function Login() {
           <div>
             <input name='password' placeholder='Password' type='password' value={password} onChange={(event) => setPassword(event.target.value)} />
           </div>
-          <button disabled={password.length < 8 || email.length < 2} onClick={handleLogin}>Connexion</button>
+          <Button variant="outlined" disabled={password.length < 8 || email.length < 2} onClick={handleLogin}>Connexion</Button>
           <button onClick={resetForm}>Reset</button>
         </form>
       </main>
