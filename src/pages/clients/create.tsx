@@ -16,20 +16,16 @@ export default function CreateClient() {
   const [address, setAddress] = useState('')
 
   const handleSaveClient = async (event: any) => {
-    // comment
     event.preventDefault()
-    const payload = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      phone: phone,
-      address: address,
-    }
-    console.log('display the client informations', payload)
     try {
-      await axios.post('https://dental.aftercode.tn/api/v1/patients/', payload)
-      //local API
-      // await axios.post('http://localhost:3000/api/clients/', payload)
+      await axios.post('https://dental.aftercode.tn/api/v1/patients/', 
+      {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        address: address,
+      })
       toast("Client created successfully")
       router.push('/clients/')
     } catch (error) {
