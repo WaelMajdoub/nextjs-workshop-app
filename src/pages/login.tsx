@@ -6,6 +6,10 @@ const inter = Inter({ subsets: ['latin'] })
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 export default function Login() {
   const router = useRouter()
@@ -40,19 +44,61 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>{title}</h1>
-        <p>your email is: {email}</p>
-        <p>your password is: {password}</p>
-        <form>
-          <div>
-            <input name='email' placeholder='exemple@gmail.com' type='email' value={email} onChange={(event) => setEmail(event.target.value)} />
-          </div>
-          <div>
-            <input name='password' placeholder='Password' type='password' value={password} onChange={(event) => setPassword(event.target.value)} />
-          </div>
-          <Button variant="outlined" disabled={password.length < 8 || email.length < 2} onClick={handleLogin}>Connexion</Button>
-          <button onClick={resetForm}>Reset</button>
-        </form>
+        <Grid container justifyContent="center" alignItems="center" sx={{ height: '100vh' }}>
+          <Grid item xs={12} sm={6} md={4}>
+            <Paper elevation={6} sx={{ p: 4 }}>
+              <Typography variant="h4" sx={{ mb: 2 }}>
+                {title}
+              </Typography>
+              <form onSubmit={handleLogin}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      label="Email Address"
+                      name="email"
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      label="Password"
+                      name="password"
+                      type="password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button fullWidth variant="contained" color="primary" disabled={password.length < 8 || email.length < 2} type="submit">
+                      Connexion
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button fullWidth variant="outlined" onClick={resetForm}>
+                      Reset
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+              <Grid container justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
+                <Grid item xs={12}>
+                  <Typography variant="body2">
+                    your email is: {email}
+                  </Typography>
+                  <Typography variant="body2">
+                    your password is: {password}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
       </main>
     </>
   )

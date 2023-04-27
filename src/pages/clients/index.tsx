@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import { Table, TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle } from '@mui/material';
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
+import Stack from '@mui/material/Stack';
+import But from '@mui/material/Button';
+
 const API_URL = 'https://dental.aftercode.tn/api/v1/patients/';
+
 
 const PatientsList = () => {
   const [patients, setPatients] = useState([]);
   const [open, setOpen] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState({});
-
+  
   const handleClickOpen = (patient) => {
     setPatientToDelete(patient);
     setOpen(true);
   };
-  
   const handleClose = () => {
     setOpen(false);
   };
-  
   const deletePatient = async () => {
     try {
-      await Axios.delete(`${API_URL}${patientToDelete.id}/`);
+      await axios.delete(`${API_URL}${patientToDelete.id}/`);
       setPatients(patients.filter((patient) => patient.id !== patientToDelete.id));
     } catch (error) {
       console.error(error);
@@ -29,15 +32,16 @@ const PatientsList = () => {
       setOpen(false);
     }
   };
-  
+
+  const fetchData = async () => {
+    const result = await axios(API_URL);
+    setPatients(result.data);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await Axios(API_URL);
-      setPatients(result.data);
-    };
     fetchData();
   }, []);
-
+  
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -72,7 +76,7 @@ const PatientsList = () => {
                 </Button>
               </TableCell>
               <TableCell>
-                <Link href="/patients/[id]" as={`/patients/${patient.id}`}>
+                <Link href="/clients/[id]" as={`/clients/${patient.id}`}>
                   <Button color="primary">Detail</Button>
                 </Link>
               </TableCell>
@@ -109,5 +113,4 @@ const PatientsList = () => {
     </TableContainer>
   );
 };
-
 export default PatientsList;
