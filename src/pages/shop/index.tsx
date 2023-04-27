@@ -16,9 +16,7 @@ export default function Shop() {
 
   // logic 
   const fetchProducts = async () => {
-    console.log('send request to an API to fetch products')
     const response = await axios.get('https://fakestoreapi.com/products')
-    console.log('response from the API : ', response.data)
     setProducts(response.data)
   }
 
