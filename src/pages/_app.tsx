@@ -17,13 +17,13 @@ const theme = createTheme();
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <theme2>
+      <div>
         <CssBaseline />
         <Navbar />
           <Component {...pageProps} />
         <Footer />
         <ToastContainer />
-      </theme2>
+      </div>
     </ThemeProvider>
   );
 }
