@@ -16,6 +16,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 function Navbar() {
+  // state user = {}
   const router = useRouter();
 
   const handleHomeClick = () => {
@@ -40,7 +41,7 @@ function Navbar() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuClick = (event) => {
+  const handleMenuClick = (event:any) => {
     setAnchorEl(event.currentTarget);
   };
 
