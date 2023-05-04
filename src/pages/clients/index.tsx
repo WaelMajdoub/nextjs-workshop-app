@@ -14,8 +14,20 @@ const PatientsList = () => {
   const [patients, setPatients] = useState([]);
   const [open, setOpen] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState({});
+
+  interface Patient {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: number;
+    address: string;
+    birthdate: string;
+    medical_history: string;
+    gender: string;
+  }
   
-  const handleClickOpen = (patient) => {
+  const handleClickOpen = (patient: any) => {
     setPatientToDelete(patient);
     setOpen(true);
   };
@@ -24,8 +36,8 @@ const PatientsList = () => {
   };
   const deletePatient = async () => {
     try {
-      await axios.delete(`${API_URL}${patientToDelete.id}/`);
-      setPatients(patients.filter((patient) => patient.id !== patientToDelete.id));
+      await axios.delete(`${API_URL}${(patientToDelete as Patient).id}/`);
+      setPatients(patients.filter((patient: any) => patient.id !== (patientToDelete as Patient).id));
     } catch (error) {
       console.error(error);
     } finally {
@@ -59,7 +71,7 @@ const PatientsList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {patients.map((patient) => (
+          {patients.map((patient: Patient) => (
             <TableRow key={patient.id}>
               <TableCell>{patient.id}</TableCell>
               <TableCell>{patient.first_name}</TableCell>
@@ -98,7 +110,7 @@ const PatientsList = () => {
         <DialogTitle id="alert-dialog-title">{"Delete patient?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete the patient with ID: {patientToDelete.id}?
+            Are you sure you want to delete the patient with ID: {(patientToDelete as Patient).id}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

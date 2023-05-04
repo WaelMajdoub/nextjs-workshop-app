@@ -15,8 +15,22 @@ const ProductList = () => {
   const [patientToDelete, setPatientToDelete] = useState({});
   const router = useRouter()
 
+
+
+  
+  interface Product {
+    id: number;
+    name: string;
+    description: string;
+    purchase_price: number;
+    sales_price: number;
+    category: string;
+    sku: string;
+    stock: number;
+    reorder_point: number;
+  }
   //function
-  const handleClickOpen = (product) => {
+  const handleClickOpen = (product: any) => {
     setPatientToDelete(product);
     setOpen(true);
   };
@@ -25,8 +39,8 @@ const ProductList = () => {
   };
   const deletePatient = async () => {
     try {
-      await axios.delete(`${API_URL}${patientToDelete.unique_id}/`);
-      setProducts(products.filter((product) => product.unique_id !== patientToDelete.unique_id));
+      await axios.delete(`${API_URL}${(patientToDelete as Product).id}/`);
+      setProducts(products.filter((product: Product) => product.id !== (patientToDelete as Product).id));
     } catch (error) {
       console.error(error);
     } finally {
@@ -45,7 +59,9 @@ const ProductList = () => {
   
   return (
     <main>
-    <Button startIcon={<CreateIcon />} variant="contained" onClick={() => router.push('/admin/products/create')}>create a product</Button>
+      <br />
+    <center><Button startIcon={<CreateIcon />} variant="contained" onClick={() => router.push('/admin/products/create')}>create a product</Button></center>
+      
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
@@ -62,7 +78,7 @@ const ProductList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
+        {products.map((product: Product) => (
             <TableRow key={product.id}>
               <TableCell>{product.id}</TableCell>
               <TableCell>{product.name}</TableCell>
@@ -98,10 +114,10 @@ const ProductList = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle unique_id="alert-dialog-title">{"Delete product?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Delete product?"}</DialogTitle>
         <DialogContent>
-          <DialogContentText unique_id="alert-dialog-description">
-            Are you sure you want to delete the product with ID: {patientToDelete.unique_id}?
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete the product with ID: {(patientToDelete as Product).id}? 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
