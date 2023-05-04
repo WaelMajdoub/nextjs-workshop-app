@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import useRouter from "next/router";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import SaveIcon from '@mui/icons-material/Save';
