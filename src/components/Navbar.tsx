@@ -41,7 +41,7 @@ function Navbar() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuClick = (event:any) => {
+  const handleMenuClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -49,7 +49,7 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  const isSmallScreen = useMediaQuery((theme:any) => theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#424272' }}>
