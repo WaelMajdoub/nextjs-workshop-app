@@ -3,11 +3,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import useRouter from 'next/router'
 import { FaHome, FaSignInAlt, FaPlus, FaMinus } from 'react-icons/fa'
 //import styles from '@/styles/Shop.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] }) as unknown as { fontFamily: string }
 
 export default function Shop() {
   const router = useRouter()
