@@ -16,7 +16,19 @@ export default function CreateClient() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState({});
 
-  const handleClickOpenDeleteDialog = (patient) => {
+  interface Patient {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: number;
+    address: string;
+    birthdate: string;
+    medical_history: string;
+    gender: string;
+  }
+
+  const handleClickOpenDeleteDialog = (patient: any) => {
     setPatientToDelete(patient);
     setOpenDeleteDialog(true);
   };
@@ -27,8 +39,8 @@ export default function CreateClient() {
 
   const handleDeletePatient = async () => {
     try {
-      await axios.delete(`${API_URL}${patientToDelete.id}/`);
-      setPatients(patients.filter((patient) => patient.id !== patientToDelete.id));
+      await axios.delete(`${API_URL}${(patientToDelete as Patient).id}/`);
+      setPatients(patients.filter((patient: any) => patient.id !== (patientToDelete as Patient).id));
     } catch (error) {
       console.error(error);
     } finally {
@@ -36,18 +48,19 @@ export default function CreateClient() {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<Patient[]> => {
     try {
       const { id } = router.query;
       if (id) {
         const result = await axios(`${API_URL}${id}/`);
-        setPatients([result.data]);
+        return [result.data];
       } else {
         const result = await axios(`${API_URL}`);
-        setPatients(result.data);
+        return result.data;
       }
     } catch (error) {
       console.error(error);
+      return [];
     }
   };
 
@@ -70,18 +83,19 @@ export default function CreateClient() {
                 alt="green iguana"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].first_name}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].last_name}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].email}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].phone}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].address}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].birthdate}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].medical_history}</Typography>
-                <Typography gutterBottom variant="h5" component="div">{patients[0].gender}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).first_name}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).last_name}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).email}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).phone}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).address}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).birthdate}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).medical_history}</Typography>
+                <Typography gutterBottom variant="h5" component="div">{(patients[0] as Patient).gender}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         )}
+        
 
         <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Button
@@ -98,7 +112,7 @@ export default function CreateClient() {
               color="primary"
               startIcon={<SaveIcon />}
               style={{ marginLeft: '10px' }}
-              onClick={() => router.push(`/edit-client?id=${patients[0].id}`)}
+              onClick={() => router.push(`/edit-client?id=${(patients[0] as Patient).id}`)}
             >
               Edit
             </Button>
@@ -108,7 +122,7 @@ export default function CreateClient() {
             <DialogTitle>Delete client?</DialogTitle>
             <DialogContent>
               <Typography>
-                Are you sure you want to delete {patientToDelete.first_name} {patientToDelete.last_name}?
+                Are you sure you want to delete {(patientToDelete as Patient).first_name} {(patientToDelete as Patient).last_name}?
               </Typography>
             </DialogContent>
             <DialogActions>
