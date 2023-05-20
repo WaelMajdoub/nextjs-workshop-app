@@ -3,13 +3,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import axios from 'axios'
-import useRouter from 'next/router'
+import {useRouter} from 'next/router'
 import { FaHome, FaSignInAlt, FaPlus, FaMinus } from 'react-icons/fa'
-//import styles from '@/styles/Shop.module.css'
+import { useAuth } from '@/context/AuthContext';
 
 const inter = Inter({ subsets: ['latin'] }) as unknown as { fontFamily: string }
 
 export default function Shop() {
+  const { isLoggedIn } = useAuth()
   const router = useRouter()
   const [products, setProducts] = useState([])
   const [count, setCount] = useState(0)
@@ -19,6 +20,12 @@ export default function Shop() {
     const response = await axios.get('https://fakestoreapi.com/products')
     setProducts(response.data)
   }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push('/login');
+    }
+  }, [isLoggedIn, router]);
 
   useEffect(() => {
     console.log('display all products ...')

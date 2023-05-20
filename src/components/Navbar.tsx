@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import useRouter from "next/router";
+import React from 'react';
+import { useRouter } from 'next/router';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -14,10 +14,11 @@ import StoreIcon from '@mui/icons-material/Store';
 import { useMediaQuery } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useAuth } from '@/context/AuthContext';
 
 function Navbar() {
-  // state user = {}
   const router = useRouter();
+  const { isLoggedIn, logout } = useAuth();
 
   const handleHomeClick = () => {
     router.push('/');
@@ -39,7 +40,12 @@ function Navbar() {
     router.push('/clients');
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const handleLogoutClick = () => {
+    logout();
+    router.push('/login');
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -72,24 +78,35 @@ function Navbar() {
               }}>
                 <StoreIcon /> Products
               </MenuItem>
-              <MenuItem onClick={() => {
-                handleMenuClose();
-                handleLoginClick();
-              }}>
-                <LockIcon /> Login
-              </MenuItem>
-              <MenuItem onClick={() => {
-                handleMenuClose();
-                handleShopClick();
-              }}>
-                <ShoppingBasketIcon /> Shop
-              </MenuItem>
-              <MenuItem onClick={() => {
-                handleMenuClose();
-                handleClientsClick();
-              }}>
-                <PeopleIcon /> Client Management
-              </MenuItem>
+              {isLoggedIn ? (
+                <>
+                  <MenuItem onClick={() => {
+                    handleMenuClose();
+                    handleLogoutClick();
+                  }}>
+                    <LockIcon /> Logout
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    handleMenuClose();
+                    handleShopClick();
+                  }}>
+                    <ShoppingBasketIcon /> Shop
+                  </MenuItem>
+                  <MenuItem onClick={() => {
+                    handleMenuClose();
+                    handleClientsClick();
+                  }}>
+                    <PeopleIcon /> Client Management
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem onClick={() => {
+                  handleMenuClose();
+                  handleLoginClick();
+                }}>
+                  <LockIcon /> Login
+                </MenuItem>
+              )}
             </Menu>
           </>
         ) : (
@@ -105,15 +122,23 @@ function Navbar() {
             <Button color="inherit" startIcon={<StoreIcon />} onClick={handleProductsClick}>
               Products
             </Button>
-            <Button color="inherit" startIcon={<LockIcon />} onClick={handleLoginClick}>
-              Login
-            </Button>
-            <Button color="inherit" startIcon={<ShoppingBasketIcon />} onClick={handleShopClick}>
-              Shop
-            </Button>
-            <Button color="inherit" startIcon={<PeopleIcon />} onClick={handleClientsClick}>
-              Client Management
-            </Button>
+            {isLoggedIn ? (
+              <>
+                <Button color="inherit" startIcon={<LockIcon />} onClick={handleLogoutClick}>
+                  Logout
+                </Button>
+                <Button color="inherit" startIcon={<ShoppingBasketIcon />} onClick={handleShopClick}>
+                  Shop
+                </Button>
+                <Button color="inherit" startIcon={<PeopleIcon />} onClick={handleClientsClick}>
+                  Client Management
+                </Button>
+              </>
+            ) : (
+              <Button color="inherit" startIcon={<LockIcon />} onClick={handleLoginClick}>
+                Login
+              </Button>
+            )}
           </>
         )}
       </Toolbar>

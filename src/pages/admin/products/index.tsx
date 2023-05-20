@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle } from '@mui/material';
 import Link from 'next/link';
-import useRouter from "next/router";
+import {useRouter} from "next/router";
 import Stack from '@mui/material/Stack';
 import CreateIcon from '@mui/icons-material/Create';
 
