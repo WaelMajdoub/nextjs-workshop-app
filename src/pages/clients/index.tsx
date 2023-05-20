@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Table, TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Button,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle } from '@mui/material';
 import Link from 'next/link';
 
-import useRouter from "next/router";
+import {useRouter} from "next/router";
 import Stack from '@mui/material/Stack';
 import But from '@mui/material/Button';
 
